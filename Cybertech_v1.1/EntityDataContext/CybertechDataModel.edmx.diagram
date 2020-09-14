@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="886cfb6ba8b946f19deaa06e78c05a1d" Name="Diagram1">
+        <EntityTypeShape EntityType="CybertechModel.Core_Areas_Modules" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Core_LNK_Role_Module_Functionality" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Core_Modules_Functionality" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Core_Roles" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Core_Users" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Profile_Field_Value" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Profile_Fields" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.Profile_Work_Experiance" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CybertechModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="CybertechModel.FK_LNK_Role_Module_Functionality_Areas_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_Modules_Functionality_Areas_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_LNK_Role_Module_Functionality_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_LNK_Role_Module_Functionality_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_Profile_Field_Value_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_Profile_Work_Experiance_Profile_Work_Experiance" ManuallyRouted="false" />
+        <AssociationConnector Association="CybertechModel.FK_Profile_Field_Value_Profile_Fields" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CybertechModel.Core_HeadCount" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CybertechModel.Training_AttendanceLogs" Width="1.5" PointX="8.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CybertechModel.Training_ActiveTrainees" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="CybertechModel.Core_LNK_User_Role" Width="1.5" PointX="3" PointY="2.75" />
+        <AssociationConnector Association="CybertechModel.FK_LNK_User_Role_LNK_User_Role" />
+        <AssociationConnector Association="CybertechModel.FK_LNK_User_Role_Roles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

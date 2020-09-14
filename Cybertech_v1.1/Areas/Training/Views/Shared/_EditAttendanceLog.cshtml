@@ -1,0 +1,67 @@
+﻿
+@model Cybertech_v1._1.Areas.Training.Models.AttendanceLogViewModel
+
+@using (Ajax.BeginForm("AttendanceRemark","Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Attendance_Data", OnSuccess = "EditLogOnSuccess"}))
+{  @Html.HiddenFor(m=>m.Attendance_Id)
+    <div class="modal-body">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b >CSSL ID</b></span>
+                    @*@Html.TextBoxFor(m => m.CSSL_ID, new { @class = "form-control", @readonly = "readonly" })*@
+                    <input type="text" id="CSSL_ID" name="CSSL_ID" class="form-control" readonly value= @Model.CSSL_ID>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Login Time</b></span>
+                    @Html.TextBoxFor(m => m.LoginDateTime, new { @class = "form-control" , @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Attendance Status</b></span>
+                    <select class="form-control" id="Attendance_Status" name="Attendance_Status">                       
+                        @foreach (var a in Model.Attendance_Status_List)
+                        {
+                            <option value="@a.Value" @a.Selected>@a.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Remark</b></span>
+                    @Html.TextAreaFor(m =>m.Remark , new { @class = "form-control", @placeholder = "Supervisor", required = "required" })
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
+        <button type="submit" class="btn btn-primary" name="cmd"><i class="fa fa-check"></i>&nbsp;Save</button>
+    </div>
+}
+
+<script type="text/javascript">
+    function EditLogOnSuccess(response)
+    {
+        if (response.success == true) {
+            $('.close').click(); $('#filterRecords').click();
+        }
+        else {
+           $('.close').click();
+           $('#Attendance_Data').html(response.partialView);
+        }
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+</script>

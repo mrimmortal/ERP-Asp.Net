@@ -1,0 +1,85 @@
+﻿@model Cybertech_v1._1.Areas.Training.Models.ViewAttendanceModel
+
+@*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")*@
+@*<link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet" />*@
+
+  
+<div class="card">
+    <div class="card-body">
+        <div class="well text-center">
+
+            @using (Ajax.BeginForm("FilterAttendance", "Home",
+             new AjaxOptions()
+             {
+                 UpdateTargetId = "Attendance_Data",
+                 HttpMethod = "Post",
+                
+             }, new { @class = "text-center" }))
+            {
+                <div class="row">
+                            <div class="col-md-3">
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Trainee</span>
+                                    <select class="form-control" id="CSSL_ID" name="CSSL_ID" required>
+                                        <option value="">Select Trainee</option>
+                                        @foreach (var a in ViewBag.Traineelist)
+                                        {
+                                            <option value="@a.Value">@a.Text</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">From</span>
+                                        @Html.TextBoxFor(model => model.From, new { @class = "form-control", type = "date", required = "required" })
+                                    </div>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">To</span>
+                                        @Html.TextBoxFor(model => model.To, new { @class = "form-control", type = "date", required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" id="filterRecords" class="btn btn-success form-control" value="Apply" />
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="Attendance_Data">
+
+                @Html.Partial("_TodayAttendanceView", Model.Records)
+
+            </div>
+
+            <div class="modal fade" id="Edit-Model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Update Trainee</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="divForUpdate">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+

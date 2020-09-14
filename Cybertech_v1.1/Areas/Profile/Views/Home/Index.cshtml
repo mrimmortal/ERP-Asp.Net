@@ -1,0 +1,729 @@
+﻿<style>
+    .profile-user-info {
+        display: table;
+        width: 98%;
+        width: calc(100% - 24px);
+        margin: 0 auto
+    }
+
+    .profile-info-row {
+        display: table-row
+    }
+
+    .profile-info-name,
+    .profile-info-value {
+        display: table-cell;
+        border-top: 1px dotted #D5E4F1
+    }
+
+    .profile-info-name {
+        text-align: right;
+        padding: 6px 10px 6px 4px;
+        font-weight: 400;
+        color: #667E99;
+        background-color: transparent;
+        width: 110px;
+        vertical-align: top;
+    }
+
+    .profile-info-value {
+        padding: 6px 4px 6px 6px
+    }
+
+        .profile-info-value > span + span:before {
+            display: inline;
+            content: ",";
+            margin-left: 1px;
+            margin-right: 3px;
+            color: #666;
+            border-bottom: 1px solid #FFF
+        }
+
+        .profile-info-value > span + span.editable-container:before {
+            display: none
+        }
+
+    .profile-info-row:first-child .profile-info-name,
+    .profile-info-row:first-child .profile-info-value {
+        border-top: none
+    }
+
+    .profile-user-info-striped {
+        border: 1px solid #DCEBF7
+    }
+
+        .profile-user-info-striped .profile-info-name {
+            color: #336199;
+            background-color: #EDF3F4;
+            border-top: 1px solid #F7FBFF
+        }
+
+        .profile-user-info-striped .profile-info-value {
+            border-top: 1px dotted #DCEBF7;
+            padding-left: 12px
+        }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+        $('.tree li.parent_li > span').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(":visible")) {
+                children.hide('fast');
+                $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+            }
+            e.stopPropagation();
+        });
+    });
+</script>
+<style>
+    .tree {
+        min-height: 20px;
+        padding: 19px;
+        margin-bottom: 20px;
+        background-color: #fbfbfb;
+        border: 1px solid #999;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+    }
+
+        .tree li {
+            list-style-type: none;
+            margin: 0;
+            padding: 10px 5px 0 5px;
+            position: relative
+        }
+
+            .tree li::before, .tree li::after {
+                content: '';
+                left: -20px;
+                position: absolute;
+                right: auto
+            }
+
+            .tree li::before {
+                border-left: 1px solid #999;
+                bottom: 50px;
+                height: 100%;
+                top: 0;
+                width: 1px
+            }
+
+            .tree li::after {
+                border-top: 1px solid #999;
+                height: 20px;
+                top: 25px;
+                width: 25px
+            }
+
+            .tree li span {
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border: 1px solid #999;
+                border-radius: 5px;
+                display: inline-block;
+                padding: 3px 8px;
+                text-decoration: none
+            }
+
+            .tree li.parent_li > span {
+                cursor: pointer
+            }
+
+        .tree > ul > li::before, .tree > ul > li::after {
+            border: 0
+        }
+
+        .tree li:last-child::before {
+            height: 30px
+        }
+
+        .tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span {
+            background: #eee;
+            border: 1px solid #94a0b4;
+            color: #000
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#btnAdd").click(function () {
+            $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                url: '/Profile/Home/addItem',
+                success: function (data) {
+                    $('#Test').html(data);
+                }
+            });
+        });
+    });
+</script>
+<div id="Test">
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+    </div>
+
+    <div class="row">
+        <div class="container col-xl-12 col-md-12 mb-12 py-3 px-3 ">
+            <div class="card">
+                <div class="row ">
+                    <div class="col-md-2">
+                        <img src="data:image/png;base64,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" class="w-100 ml-4 mt-5">
+                    </div>
+                    <!-- Personal detail -->
+                    <div class="col-xl-5 col-md-10 px-3">
+                        <div class="card-block ml-2 mt-3">
+                            <h4 class="card-title">Personal Details</h4>
+                            <div class="profile-user-info">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Username
+                                    </div>
+                                    <div class="profile-info-value">
+                                        <span>Akshay V. Dani</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Location </div>
+
+                                    <div class="profile-info-value">
+                                        <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                        <span>Netherlands</span>
+                                        <span>Amsterdam</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Date Of Birth </div>
+
+                                    <div class="profile-info-value">
+                                        <span>1995/06/20</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Age </div>
+
+                                    <div class="profile-info-value">
+                                        <span>38</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Current Address</div>
+
+                                    <div class="profile-info-value">
+                                        <span>
+                                            Dermis India
+                                            J-219, Saket New Delhi -110017
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr hr-8 dotted"></div>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <!--Other Details -->
+
+                    <div class="col-xl-5 col-md-10 px-3">
+                        <div class="card-block ml-2 mt-3">
+                            <h4 class="card-title">&nbsp;</h4>
+                            <div class="profile-user-info">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">About:</div>
+
+                                    <div class="profile-info-value">
+                                        <span>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr hr-8 dotted"></div>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Score Tile Row -->
+    <div class="row">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h4 mb-0 font-weight-bold text-primary text-uppercase mb-1">PB</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">100%</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{var a = (UserAuth)Session["ID"];
+            if (a.Role_name == "Admin")
+            {
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h4 mb-0 font-weight-bold text-primary text-uppercase mb-1">Appraisal</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0-5</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card shadow h-100 py-2">
+                <div class="card-body">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab_Personal_Info">Personal Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_Education">Education</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_Work_Experience">Work Experience</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_Contact_Details">Contact Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_Address_Details">Address Details</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="tab_Personal_Info">
+                            <div class="well well-sm">
+                                <h4>PERSONAL DATA</h4>
+                            </div>
+                            <p align="right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </button>
+                            </p>
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Firstname</td>
+                                        <td>: Vijayan</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lastname</td>
+                                        <td>: Karuppaiah</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birthday</td>
+                                        <td>: 6 March 1980</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td>: Male</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Spouse </td>
+                                        <td>: Vijayalakshmi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name of Children</td>
+                                        <td>: Darshan</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Father's Name</td>
+                                        <td>: Karuppaiah</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mother's Name</td>
+                                        <td>: Palani Mayil</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Citizenship</td>
+                                        <td>: Indian</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane container fade" id="tab_Education">
+                            <div class="well well-sm">
+                                <h4>EDUCATIONAL BACKGROUND</h4>
+                            </div>
+                            <p align="right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </button>
+                            </p>
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Elementary School</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>High School</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Under Graduate</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Post Graduate</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Master of Philosophy (MPhil)</td>
+                                        <td>: </td>
+                                        <td>Year Graduated </td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Doctor of Philosophy (PhD)</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bachelor of Engineering (B.Eng)<br />Bachelor of Technology (B.Tech)</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Master of Engineering (M.Eng)<br />Master of Technology (M.Tech)</td>
+                                        <td>: </td>
+                                        <td>Year Graduated</td>
+                                        <td>: </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane container fade" id="tab_Work_Experience">
+                            <div class="well well-sm">
+                                <h4>EMPLOYMENT RECORD</h4>
+                            </div>
+                            <p align="right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </button>
+                            </p>
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Position</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Principle Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employer</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type of Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br />
+
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Position</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Principle Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employer</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type of Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br />
+
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Position</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Principle Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employer</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type of Activites</td>
+                                        <td>: </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane container fade" id="tab_Contact_Details">
+
+                        </div>
+                        <div class="tab-pane container fade" id="tab_Address_Details">
+                            <div class="well well-sm">
+                                <h4>OFFICIAL AND PERSONAL CONTACTS</h4>
+                            </div>
+                            <p align="right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </button>
+                            </p>
+                            <table class="table bio-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Office Telephone Number</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Office Mobile Phone</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Official Email Address</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Personal Mobile Phone</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Personal Email Address </td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Home Phone</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Facebook Account</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Twitter Account</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Skype Account</td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LinkedIn Account</td>
+                                        <td>: </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra Space For Content -->
+    <div class="row">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="tree well">
+                        <ul>
+                            <li>
+                                <span><i class="icon-folder-open"></i> Parent</span>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-minus-sign"></i> Child</span>
+                                        <ul>
+                                            <li>
+                                                <span><i class="icon-leaf"></i> Grand Child</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span><i class="icon-minus-sign"></i> Child</span>
+                                        <ul>
+                                            <li>
+                                                <span><i class="icon-leaf"></i> Grand Child</span>
+                                            </li>
+                                            <li>
+                                                <span><i class="icon-minus-sign"></i> Grand Child</span>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i> Great Grand Child</span>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class="icon-leaf"></i> Grand Child</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span><i class="icon-folder-open"></i> Parent2</span>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-leaf"></i> Child</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card shadow h-100 py-2">
+                <div class="card-body">
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

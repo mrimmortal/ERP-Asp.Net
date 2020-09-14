@@ -1,0 +1,97 @@
+﻿
+@model Cybertech_v1._1.EntityDataContext.Training_ActiveTrainees
+
+@using (Ajax.BeginForm("EditTrainee", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "div-record", OnSuccess = "$('.close').click()" }))
+{
+    @Html.HiddenFor(m=>m.T_Uid)
+    <div class="modal-body">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>CSSL ID</b></span>
+                    @Html.TextBoxFor(m => m.CSSL_ID, new { @class = "form-control", @placeholder = "CSSL ID", required = "required" })
+                    @*@Html.ValidationMessageFor(m => m.CSSL_ID)*@
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Name</b></span>
+                    @Html.TextBoxFor(m => m.Trainee_Name, new { @class = "form-control", @placeholder = "Name", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Role Ex.(Trainee/Traineer)</b></span>
+                    @Html.TextBoxFor(m => m.Role, new { @class = "form-control", @placeholder = "Role Ex.(Trainee/Traineer)", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Supervisor</b></span>
+                    @Html.TextBoxFor(m => m.Supervisor, new { @class = "form-control", @placeholder = "Supervisor", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Type</b></span>
+                    @Html.TextBoxFor(m => m.Type, new { @class = "form-control", @placeholder = "Type", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Technology</b></span>
+                    @Html.TextBoxFor(m => m.Technology, new { @class = "form-control", @placeholder = "Technology", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>DOJ</b></span>
+                    @Html.TextBoxFor(m => m.DOJ, new { @class = "form-control", @placeholder = "DOJ", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Team</b></span>
+                    @Html.TextBoxFor(m => m.Team, new { @class = "form-control", @placeholder = "Team", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Active / Deactivate </b></span>
+                    @Html.TextBoxFor(m => m.Active, new { @class = "form-control", @placeholder = "Active / Deactive", required = "required" })
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><b>Shift Time</b></span>
+                    @Html.TextBoxFor(m => m.Shift_Time, new { @class = "form-control", @placeholder = "Shift Time", })
+
+                    @*<input id="Shift_Time" name="Shift_Time" type="text" class=" form-control" placeholder="Shift Timing" />*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
+        <button type="submit" class="btn btn-primary" name="cmd"><i class="fa fa-check"></i>&nbsp;Save</button>
+    </div>
+}

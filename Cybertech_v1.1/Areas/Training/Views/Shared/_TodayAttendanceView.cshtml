@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Cybertech_v1._1.Areas.Training.Models.Attendancerecord>
+
+<div class="row justify-content-md-center">
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TraineeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.Attendance_id)
+                            @Html.HiddenFor(modelItem => item.CSSL_ID)
+                            @Html.DisplayFor(modelItem => item.TraineeName)
+                        </td>
+
+                        <td class="@item.Statuscolor">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        @if (item.Status != "WO")
+                        {
+                            <td>
+                                @Ajax.ActionLink(" ", "AttendanceRemark", "Home", new { @Attendance_id = item.Attendance_id, @CSSL_ID = item.CSSL_ID, @Date = item.Date, @Status = item.Status }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "fas fa-edit editDialog" })
+                            </td>
+                        }
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    //$(document).ready(function () {
+    //    $('.editDialog').click(function (event) {
+    //      //event.preventDefault();
+    //        $.get(this.href, function (response) {
+    //            $('.divForUpdate').html(response);
+    //        });
+    //        $('#Edit-Model').modal({
+    //            backdrop: 'static',
+    //        }, 'show');
+    //    });
+    //});
+
+    $(document).ready(function () {
+        $('.editDialog').click(function () {
+            //var url = $('.editDialog').data('url');
+            $.get(this.href, function (response) {
+                $('.divForUpdate').html(response);
+                $('#Edit-Model').modal('show');
+            });
+        });
+    });
+
+</script>

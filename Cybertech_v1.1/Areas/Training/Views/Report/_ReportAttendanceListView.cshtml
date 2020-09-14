@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Cybertech_v1._1.Areas.Training.Models.ReportModels.ReportTraineeNamesModel>
+<style>
+table {
+  table-layout: fixed;
+  width: 100%;
+  *margin-left: -100px;/*ie7*/
+}
+td, th {
+  vertical-align: top;
+  border-top: 1px solid #ccc;
+  padding:10px;
+  width:100px;
+  align-content:center;
+}
+th {
+/*  position:absolute;
+  *position: relative; /*ie7*/
+/*  left:0; */
+  width:70px;
+}
+.hard_left {
+  position:absolute;
+  *position: relative; /*ie7*/
+  left:0;
+  width:100px;
+}
+.next_left {
+  position:absolute;
+  *position: relative; /*ie7*/
+  left:100px;
+  width:100px;
+}
+.outer {position:relative}
+.inner {
+  overflow-x:scroll;
+  overflow-y:visible;
+  width:auto;
+  margin-left:200px;
+}
+</style >
+    <div class="row ">
+        <div class="card col-md-12">
+            <div class="card-body ">
+                <div class="outer">
+                    <div class="inner">
+                        <table class="table table-striped ">
+                            <tr>
+                                <th class="hard_left" style="font-size:14px;">
+                                    Name
+                                </th>
+                                <th class="next_left" style="font-size:14px;">
+                                    CSSL ID
+                                </th>
+                                @foreach (var item in ViewBag.range)
+                                {
+                                    <th style="font-size:14px;">
+                                        @item.ToString("d MMM")
+                                    </th>
+                                }
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr style="font-size:15px;" >
+                                    <td class="hard_left" style="width:800px;">
+                                        @Html.DisplayFor(modelItem => item.TraineeName)
+                                    </td>
+                                    <td class="next_left">
+                                        @Html.DisplayFor(modelItem => item.CSSL_ID)
+                                    </td>
+                                    @foreach (var x in item.DateStatus)
+                                    {
+                                        <td class="@x.Statuscolor">
+                                            @Html.DisplayFor(modelItem => x.Status)
+                                        </td>
+                                    }
+                                    @*@if (item.Status != "WO")
+                            {
+                                <td>
+                                    @Ajax.ActionLink("Edit", "AttendanceRemark", "Home", new { @Attendance_id = item.Attendance_id, @CSSL_ID = item.CSSL_ID, @Date = item.Date, @Status = item.Status }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "fa fa-trash-o editDialog" })
+                                </td>
+                            }*@
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+

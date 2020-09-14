@@ -1,0 +1,83 @@
+﻿@model Cybertech_v1._1.Areas.Training.Models.TraineeAttendanceModel
+
+@*<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+
+
+@if (DateTime.Now >= Model.AccessTime)
+{
+    if (Model.Status == "A")
+    {
+        <div id="DivAttendance" class="text-center">
+
+            <h3>Please Mark Your Attendance</h3>
+
+            @using (Ajax.BeginForm("MarkAttendance", "Home",
+                 new AjaxOptions()
+                 {
+                     UpdateTargetId = "DivAttendance",
+                     HttpMethod = "Post",
+                     OnSuccess = "OnSuccess",
+                     OnFailure = "OnFailure"
+                 }, new { @class = "Well text-center" }))
+            {
+                @Html.HiddenFor(m => m.CSSL_ID)
+                @Html.HiddenFor(m => m.Status)
+                @Html.HiddenFor(m => m.TraineeName)
+                <input type="submit" class="btn btn-circle btn-success  " value="Login" />
+            }
+        </div>
+    }
+    else if (Model.Status == "D")
+    {
+        <div id="DivAttendance2" class="text-center">
+            <div class="Well text-center">
+                <h2>Hi @Model.TraineeName</h2><br />
+                <h3 class="danger">You Are Late</h3>
+
+                @using (Ajax.BeginForm("MarkAttendance", "Home",
+     new AjaxOptions()
+     {
+         UpdateTargetId = "DivAttendance",
+         HttpMethod = "Post",
+         OnSuccess = "OnSuccess",
+         OnFailure = "OnFailure"
+     }, new { @class = "Well text-center" }))
+                {
+                    @Html.HiddenFor(m => m.CSSL_ID)
+                    @Html.HiddenFor(m => m.Status)
+                    @Html.HiddenFor(m => m.TraineeName)
+                    <input type="submit" class="btn btn-circle btn-success  " value="Login" />
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="DivAttendance2" class="text-center">
+            <div class="Well text-center">
+                <h2>Hi @Model.TraineeName</h2><br />
+                <h3>You Are Already Present For The Day</h3>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div id="DivAttendance2" class="text-center">
+        <div class="Well text-center">
+            <h2>Hi @Model.TraineeName</h2><br />
+          <h3>Please Login 5 Min Before</h3>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function OnSuccess(data) {
+    alert('Hi '+ '@Model.TraineeName' + ' your Attendance is marked');
+    window.location.href = "TraineeAttendance";
+}
+function OnFailure(data) {
+    alert('HTTP Status Code: ' + data.param1 + '  Error Message: ' + data.param2);
+}
+</script>  

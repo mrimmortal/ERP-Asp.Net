@@ -1,0 +1,886 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CybertechModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Core_Areas_Modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="moduleName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Core_HeadCount">
+          <Key>
+            <PropertyRef Name="CSSL_ID" />
+          </Key>
+          <Property Name="CSSL_ID" Type="int" Nullable="false" />
+          <Property Name="Employee_Name" Type="nvarchar(max)" />
+          <Property Name="Role" Type="nvarchar(max)" />
+          <Property Name="Supervisor" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
+          <Property Name="Technology" Type="nvarchar(max)" />
+          <Property Name="DOJ" Type="datetime" />
+          <Property Name="Team" Type="nvarchar(max)" />
+          <Property Name="Active" Type="nvarchar(max)" />
+          <Property Name="Shift_Time" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Core_LNK_Role_Module_Functionality">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="module_id" Type="int" />
+          <Property Name="functionality_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Core_LNK_User_Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Core_Modules_Functionality">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="area_module_id" Type="int" />
+          <Property Name="module_action_name" Type="nvarchar" MaxLength="225" />
+        </EntityType>
+        <EntityType Name="Core_Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="sys_admin" Type="int" />
+        </EntityType>
+        <EntityType Name="Core_Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Profile_Field_Value">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="field_id" Type="int" />
+          <Property Name="field_value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Profile_Fields">
+          <Key>
+            <PropertyRef Name="field_id" />
+          </Key>
+          <Property Name="field_id" Type="int" Nullable="false" />
+          <Property Name="field_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Profile_Work_Experiance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="employer" Type="nvarchar(max)" />
+          <Property Name="position" Type="nvarchar(max)" />
+          <Property Name="principleactivity" Type="nvarchar(max)" />
+          <Property Name="keyachievement" Type="nvarchar(max)" />
+          <Property Name="startdate" Type="nvarchar(max)" />
+          <Property Name="lastdate" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Training_ActiveTrainees">
+          <Key>
+            <PropertyRef Name="T_Uid" />
+          </Key>
+          <Property Name="T_Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CSSL_ID" Type="int" Nullable="false" />
+          <Property Name="Trainee_Name" Type="nvarchar(max)" />
+          <Property Name="Role" Type="nvarchar(max)" />
+          <Property Name="Supervisor" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
+          <Property Name="Technology" Type="nvarchar(max)" />
+          <Property Name="DOJ" Type="datetime" />
+          <Property Name="Team" Type="nvarchar(max)" />
+          <Property Name="Active" Type="nvarchar(max)" />
+          <Property Name="Shift_Time" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Training_AttendanceLogs">
+          <Key>
+            <PropertyRef Name="Attendance_Id" />
+          </Key>
+          <Property Name="Attendance_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CSSL_ID" Type="int" />
+          <Property Name="LoginDateTime" Type="datetime" />
+          <Property Name="Attendance_Status" Type="nvarchar(max)" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_LNK_Role_Module_Functionality_Areas_Modules">
+          <End Role="Core_Areas_Modules" Type="Self.Core_Areas_Modules" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Areas_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_Role_Module_Functionality_Roles">
+          <End Role="Core_Roles" Type="Self.Core_Roles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_Role_Module_Functionality_Users">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_User_Role_LNK_User_Role">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_User_Role" Type="Self.Core_LNK_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_User_Role">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_User_Role_Roles">
+          <End Role="Core_Roles" Type="Self.Core_Roles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_User_Role" Type="Self.Core_LNK_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_User_Role">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Modules_Functionality_Areas_Modules">
+          <End Role="Core_Areas_Modules" Type="Self.Core_Areas_Modules" Multiplicity="0..1" />
+          <End Role="Core_Modules_Functionality" Type="Self.Core_Modules_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Areas_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Core_Modules_Functionality">
+              <PropertyRef Name="area_module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Field_Value_Profile_Fields">
+          <End Role="Profile_Fields" Type="Self.Profile_Fields" Multiplicity="0..1" />
+          <End Role="Profile_Field_Value" Type="Self.Profile_Field_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_Fields">
+              <PropertyRef Name="field_id" />
+            </Principal>
+            <Dependent Role="Profile_Field_Value">
+              <PropertyRef Name="field_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Field_Value_Users">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Profile_Field_Value" Type="Self.Profile_Field_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Profile_Field_Value">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Work_Experiance_Profile_Work_Experiance">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Profile_Work_Experiance" Type="Self.Profile_Work_Experiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Profile_Work_Experiance">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CybertechModelStoreContainer">
+          <EntitySet Name="Core_Areas_Modules" EntityType="Self.Core_Areas_Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_HeadCount" EntityType="Self.Core_HeadCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_LNK_Role_Module_Functionality" EntityType="Self.Core_LNK_Role_Module_Functionality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_LNK_User_Role" EntityType="Self.Core_LNK_User_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_Modules_Functionality" EntityType="Self.Core_Modules_Functionality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_Roles" EntityType="Self.Core_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Core_Users" EntityType="Self.Core_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile_Field_Value" EntityType="Self.Profile_Field_Value" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile_Fields" EntityType="Self.Profile_Fields" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile_Work_Experiance" EntityType="Self.Profile_Work_Experiance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training_ActiveTrainees" EntityType="Self.Training_ActiveTrainees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training_AttendanceLogs" EntityType="Self.Training_AttendanceLogs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Areas_Modules" Association="Self.FK_LNK_Role_Module_Functionality_Areas_Modules">
+            <End Role="Core_Areas_Modules" EntitySet="Core_Areas_Modules" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Roles" Association="Self.FK_LNK_Role_Module_Functionality_Roles">
+            <End Role="Core_Roles" EntitySet="Core_Roles" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Users" Association="Self.FK_LNK_Role_Module_Functionality_Users">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_User_Role_LNK_User_Role" Association="Self.FK_LNK_User_Role_LNK_User_Role">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Core_LNK_User_Role" EntitySet="Core_LNK_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_User_Role_Roles" Association="Self.FK_LNK_User_Role_Roles">
+            <End Role="Core_Roles" EntitySet="Core_Roles" />
+            <End Role="Core_LNK_User_Role" EntitySet="Core_LNK_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Modules_Functionality_Areas_Modules" Association="Self.FK_Modules_Functionality_Areas_Modules">
+            <End Role="Core_Areas_Modules" EntitySet="Core_Areas_Modules" />
+            <End Role="Core_Modules_Functionality" EntitySet="Core_Modules_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Field_Value_Profile_Fields" Association="Self.FK_Profile_Field_Value_Profile_Fields">
+            <End Role="Profile_Fields" EntitySet="Profile_Fields" />
+            <End Role="Profile_Field_Value" EntitySet="Profile_Field_Value" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Field_Value_Users" Association="Self.FK_Profile_Field_Value_Users">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Profile_Field_Value" EntitySet="Profile_Field_Value" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Work_Experiance_Profile_Work_Experiance" Association="Self.FK_Profile_Work_Experiance_Profile_Work_Experiance">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Profile_Work_Experiance" EntitySet="Profile_Work_Experiance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CybertechModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Core_Areas_Modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="moduleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Core_LNK_Role_Module_Functionality" Relationship="Self.FK_LNK_Role_Module_Functionality_Areas_Modules" FromRole="Core_Areas_Modules" ToRole="Core_LNK_Role_Module_Functionality" />
+          <NavigationProperty Name="Core_Modules_Functionality" Relationship="Self.FK_Modules_Functionality_Areas_Modules" FromRole="Core_Areas_Modules" ToRole="Core_Modules_Functionality" />
+        </EntityType>
+        <EntityType Name="Core_LNK_Role_Module_Functionality">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="module_id" Type="Int32" />
+          <Property Name="functionality_id" Type="Int32" />
+          <NavigationProperty Name="Core_Areas_Modules" Relationship="Self.FK_LNK_Role_Module_Functionality_Areas_Modules" FromRole="Core_LNK_Role_Module_Functionality" ToRole="Core_Areas_Modules" />
+          <NavigationProperty Name="Core_Roles" Relationship="Self.FK_LNK_Role_Module_Functionality_Roles" FromRole="Core_LNK_Role_Module_Functionality" ToRole="Core_Roles" />
+          <NavigationProperty Name="Core_Users" Relationship="Self.FK_LNK_Role_Module_Functionality_Users" FromRole="Core_LNK_Role_Module_Functionality" ToRole="Core_Users" />
+        </EntityType>
+        <EntityType Name="Core_Modules_Functionality">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="area_module_id" Type="Int32" />
+          <Property Name="module_action_name" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Core_Areas_Modules" Relationship="Self.FK_Modules_Functionality_Areas_Modules" FromRole="Core_Modules_Functionality" ToRole="Core_Areas_Modules" />
+        </EntityType>
+        <EntityType Name="Core_Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sys_admin" Type="Int32" />
+          <NavigationProperty Name="Core_LNK_Role_Module_Functionality" Relationship="Self.FK_LNK_Role_Module_Functionality_Roles" FromRole="Core_Roles" ToRole="Core_LNK_Role_Module_Functionality" />
+          <NavigationProperty Name="Core_LNK_User_Role" Relationship="CybertechModel.FK_LNK_User_Role_Roles" FromRole="Core_Roles" ToRole="Core_LNK_User_Role" />
+        </EntityType>
+        <EntityType Name="Core_Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Core_LNK_Role_Module_Functionality" Relationship="Self.FK_LNK_Role_Module_Functionality_Users" FromRole="Core_Users" ToRole="Core_LNK_Role_Module_Functionality" />
+          <NavigationProperty Name="Profile_Field_Value" Relationship="Self.FK_Profile_Field_Value_Users" FromRole="Core_Users" ToRole="Profile_Field_Value" />
+          <NavigationProperty Name="Profile_Work_Experiance" Relationship="Self.FK_Profile_Work_Experiance_Profile_Work_Experiance" FromRole="Core_Users" ToRole="Profile_Work_Experiance" />
+          <NavigationProperty Name="Core_LNK_User_Role" Relationship="CybertechModel.FK_LNK_User_Role_LNK_User_Role" FromRole="Core_Users" ToRole="Core_LNK_User_Role" />
+        </EntityType>
+        <EntityType Name="Profile_Field_Value">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="field_id" Type="Int32" />
+          <Property Name="field_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Core_Users" Relationship="Self.FK_Profile_Field_Value_Users" FromRole="Profile_Field_Value" ToRole="Core_Users" />
+          <NavigationProperty Name="Profile_Fields" Relationship="Self.FK_Profile_Field_Value_Profile_Fields" FromRole="Profile_Field_Value" ToRole="Profile_Fields" />
+        </EntityType>
+        <EntityType Name="Profile_Fields">
+          <Key>
+            <PropertyRef Name="field_id" />
+          </Key>
+          <Property Name="field_id" Type="Int32" Nullable="false" />
+          <Property Name="field_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profile_Field_Value" Relationship="Self.FK_Profile_Field_Value_Profile_Fields" FromRole="Profile_Fields" ToRole="Profile_Field_Value" />
+        </EntityType>
+        <EntityType Name="Profile_Work_Experiance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="employer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="principleactivity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="keyachievement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="startdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Core_Users" Relationship="Self.FK_Profile_Work_Experiance_Profile_Work_Experiance" FromRole="Profile_Work_Experiance" ToRole="Core_Users" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_LNK_Role_Module_Functionality_Areas_Modules">
+          <End Role="Core_Areas_Modules" Type="Self.Core_Areas_Modules" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Areas_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Modules_Functionality_Areas_Modules">
+          <End Role="Core_Areas_Modules" Type="Self.Core_Areas_Modules" Multiplicity="0..1" />
+          <End Role="Core_Modules_Functionality" Type="Self.Core_Modules_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Areas_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Core_Modules_Functionality">
+              <PropertyRef Name="area_module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_Role_Module_Functionality_Roles">
+          <End Role="Core_Roles" Type="Self.Core_Roles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_Role_Module_Functionality_Users">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Core_LNK_Role_Module_Functionality" Type="Self.Core_LNK_Role_Module_Functionality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_Role_Module_Functionality">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Field_Value_Users">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Profile_Field_Value" Type="Self.Profile_Field_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Profile_Field_Value">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Work_Experiance_Profile_Work_Experiance">
+          <End Role="Core_Users" Type="Self.Core_Users" Multiplicity="0..1" />
+          <End Role="Profile_Work_Experiance" Type="Self.Profile_Work_Experiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Profile_Work_Experiance">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_Field_Value_Profile_Fields">
+          <End Role="Profile_Fields" Type="Self.Profile_Fields" Multiplicity="0..1" />
+          <End Role="Profile_Field_Value" Type="Self.Profile_Field_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_Fields">
+              <PropertyRef Name="field_id" />
+            </Principal>
+            <Dependent Role="Profile_Field_Value">
+              <PropertyRef Name="field_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CybertechEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Core_Areas_Modules" EntityType="Self.Core_Areas_Modules" />
+          <EntitySet Name="Core_LNK_Role_Module_Functionality" EntityType="Self.Core_LNK_Role_Module_Functionality" />
+          <EntitySet Name="Core_Modules_Functionality" EntityType="Self.Core_Modules_Functionality" />
+          <EntitySet Name="Core_Roles" EntityType="Self.Core_Roles" />
+          <EntitySet Name="Core_Users" EntityType="Self.Core_Users" />
+          <EntitySet Name="Profile_Field_Value" EntityType="Self.Profile_Field_Value" />
+          <EntitySet Name="Profile_Fields" EntityType="Self.Profile_Fields" />
+          <EntitySet Name="Profile_Work_Experiance" EntityType="Self.Profile_Work_Experiance" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Areas_Modules" Association="Self.FK_LNK_Role_Module_Functionality_Areas_Modules">
+            <End Role="Core_Areas_Modules" EntitySet="Core_Areas_Modules" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Modules_Functionality_Areas_Modules" Association="Self.FK_Modules_Functionality_Areas_Modules">
+            <End Role="Core_Areas_Modules" EntitySet="Core_Areas_Modules" />
+            <End Role="Core_Modules_Functionality" EntitySet="Core_Modules_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Roles" Association="Self.FK_LNK_Role_Module_Functionality_Roles">
+            <End Role="Core_Roles" EntitySet="Core_Roles" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_Role_Module_Functionality_Users" Association="Self.FK_LNK_Role_Module_Functionality_Users">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Core_LNK_Role_Module_Functionality" EntitySet="Core_LNK_Role_Module_Functionality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Field_Value_Users" Association="Self.FK_Profile_Field_Value_Users">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Profile_Field_Value" EntitySet="Profile_Field_Value" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Work_Experiance_Profile_Work_Experiance" Association="Self.FK_Profile_Work_Experiance_Profile_Work_Experiance">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Profile_Work_Experiance" EntitySet="Profile_Work_Experiance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Field_Value_Profile_Fields" Association="Self.FK_Profile_Field_Value_Profile_Fields">
+            <End Role="Profile_Fields" EntitySet="Profile_Fields" />
+            <End Role="Profile_Field_Value" EntitySet="Profile_Field_Value" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CybertechModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CybertechModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Core_HeadCount" EntityType="CybertechModel.Core_HeadCount" />
+          <EntitySet Name="Training_AttendanceLogs" EntityType="CybertechModel.Training_AttendanceLogs" />
+          <EntitySet Name="Training_ActiveTrainees" EntityType="CybertechModel.Training_ActiveTrainees" />
+          <EntitySet Name="Core_LNK_User_Role" EntityType="CybertechModel.Core_LNK_User_Role" />
+          <AssociationSet Name="FK_LNK_User_Role_LNK_User_Role" Association="CybertechModel.FK_LNK_User_Role_LNK_User_Role">
+            <End Role="Core_Users" EntitySet="Core_Users" />
+            <End Role="Core_LNK_User_Role" EntitySet="Core_LNK_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LNK_User_Role_Roles" Association="CybertechModel.FK_LNK_User_Role_Roles">
+            <End Role="Core_Roles" EntitySet="Core_Roles" />
+            <End Role="Core_LNK_User_Role" EntitySet="Core_LNK_User_Role" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Core_HeadCount">
+          <Key>
+            <PropertyRef Name="CSSL_ID" />
+          </Key>
+          <Property Name="CSSL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Employee_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Supervisor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="Team" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_Time" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Training_AttendanceLogs">
+          <Key>
+            <PropertyRef Name="Attendance_Id" />
+          </Key>
+          <Property Name="Attendance_Id" Type="Int32" Nullable="false" />
+          <Property Name="CSSL_ID" Type="Int32" />
+          <Property Name="LoginDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Attendance_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Training_ActiveTrainees">
+          <Key>
+            <PropertyRef Name="T_Uid" />
+          </Key>
+          <Property Name="T_Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CSSL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Trainee_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Supervisor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="Team" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_Time" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Core_LNK_User_Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="Core_Users" Relationship="CybertechModel.FK_LNK_User_Role_LNK_User_Role" FromRole="Core_LNK_User_Role" ToRole="Core_Users" />
+          <NavigationProperty Name="Core_Roles" Relationship="CybertechModel.FK_LNK_User_Role_Roles" FromRole="Core_LNK_User_Role" ToRole="Core_Roles" />
+        </EntityType>
+        <Association Name="FK_LNK_User_Role_LNK_User_Role">
+          <End Type="CybertechModel.Core_Users" Role="Core_Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CybertechModel.Core_LNK_User_Role" Role="Core_LNK_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_User_Role">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNK_User_Role_Roles">
+          <End Type="CybertechModel.Core_Roles" Role="Core_Roles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CybertechModel.Core_LNK_User_Role" Role="Core_LNK_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Core_Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Core_LNK_User_Role">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CybertechModelStoreContainer" CdmEntityContainer="CybertechEntities">
+          <EntitySetMapping Name="Core_Areas_Modules">
+            <EntityTypeMapping TypeName="CybertechModel.Core_Areas_Modules">
+              <MappingFragment StoreEntitySet="Core_Areas_Modules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="moduleName" ColumnName="moduleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Core_LNK_Role_Module_Functionality">
+            <EntityTypeMapping TypeName="CybertechModel.Core_LNK_Role_Module_Functionality">
+              <MappingFragment StoreEntitySet="Core_LNK_Role_Module_Functionality">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="functionality_id" ColumnName="functionality_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Core_Modules_Functionality">
+            <EntityTypeMapping TypeName="CybertechModel.Core_Modules_Functionality">
+              <MappingFragment StoreEntitySet="Core_Modules_Functionality">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="area_module_id" ColumnName="area_module_id" />
+                <ScalarProperty Name="module_action_name" ColumnName="module_action_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Core_Roles">
+            <EntityTypeMapping TypeName="CybertechModel.Core_Roles">
+              <MappingFragment StoreEntitySet="Core_Roles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="sys_admin" ColumnName="sys_admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Core_Users">
+            <EntityTypeMapping TypeName="CybertechModel.Core_Users">
+              <MappingFragment StoreEntitySet="Core_Users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Field_Value">
+            <EntityTypeMapping TypeName="CybertechModel.Profile_Field_Value">
+              <MappingFragment StoreEntitySet="Profile_Field_Value">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="field_id" ColumnName="field_id" />
+                <ScalarProperty Name="field_value" ColumnName="field_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Fields">
+            <EntityTypeMapping TypeName="CybertechModel.Profile_Fields">
+              <MappingFragment StoreEntitySet="Profile_Fields">
+                <ScalarProperty Name="field_id" ColumnName="field_id" />
+                <ScalarProperty Name="field_name" ColumnName="field_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Work_Experiance">
+            <EntityTypeMapping TypeName="CybertechModel.Profile_Work_Experiance">
+              <MappingFragment StoreEntitySet="Profile_Work_Experiance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="employer" ColumnName="employer" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="principleactivity" ColumnName="principleactivity" />
+                <ScalarProperty Name="keyachievement" ColumnName="keyachievement" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="lastdate" ColumnName="lastdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CybertechModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CybertechModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CybertechModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CybertechModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CybertechModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CybertechModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CybertechModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CybertechModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CybertechModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CybertechModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Core_HeadCount">
+            <EntityTypeMapping TypeName="CybertechModel.Core_HeadCount">
+              <MappingFragment StoreEntitySet="Core_HeadCount">
+                <ScalarProperty Name="Shift_Time" ColumnName="Shift_Time" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Supervisor" ColumnName="Supervisor" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="CSSL_ID" ColumnName="CSSL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Training_AttendanceLogs">
+            <EntityTypeMapping TypeName="CybertechModel.Training_AttendanceLogs">
+              <MappingFragment StoreEntitySet="Training_AttendanceLogs">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Attendance_Status" ColumnName="Attendance_Status" />
+                <ScalarProperty Name="LoginDateTime" ColumnName="LoginDateTime" />
+                <ScalarProperty Name="CSSL_ID" ColumnName="CSSL_ID" />
+                <ScalarProperty Name="Attendance_Id" ColumnName="Attendance_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Training_ActiveTrainees">
+            <EntityTypeMapping TypeName="CybertechModel.Training_ActiveTrainees">
+              <MappingFragment StoreEntitySet="Training_ActiveTrainees">
+                <ScalarProperty Name="Shift_Time" ColumnName="Shift_Time" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Supervisor" ColumnName="Supervisor" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Trainee_Name" ColumnName="Trainee_Name" />
+                <ScalarProperty Name="CSSL_ID" ColumnName="CSSL_ID" />
+                <ScalarProperty Name="T_Uid" ColumnName="T_Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Core_LNK_User_Role">
+            <EntityTypeMapping TypeName="CybertechModel.Core_LNK_User_Role">
+              <MappingFragment StoreEntitySet="Core_LNK_User_Role">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
